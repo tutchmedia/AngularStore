@@ -1,0 +1,55 @@
+<p class="text-info">
+    
+</p>
+
+<p>
+    Search: <input ng-model="search.name">
+</p>
+
+<table class="table table-bordered">
+    <tr class="well">
+        <td class="tdLeft" colspan="2">
+            <div ng-show="!Countries.length"><i class="fa fa-circle-o-notch fa-spin"></i> Loading Products</div>
+        </td>
+        <td class="tdRight" colspan="2" >
+            <a href="#/cart" title="go to shopping cart" ng-disabled="cart.getTotalCount() < 1">
+                <i class="icon-shopping-cart" />
+                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency: '£'}}</b>
+            </a>
+        </td>
+    </tr>
+    
+    <tr ng-repeat="product in Countries.slice(((currentPage-1)*numPerPage), ((currentPage)*numPerPage)) | orderBy:'name' | limitTo: numPerPage | filter:search track by $index ">
+        <td class="tdCenter"><img ng-src="{{product.image.url()}}" alt="{{product.name}}" /></td>
+        <td>
+            <a href="#/product/{{product.id}}"><b>{{product.name}}</b></a><br />
+            {{product.description}}
+        </td>
+        <td class="tdRight">
+            {{product.price | currency: '£'}}
+        </td>
+        <td class="tdCenter">
+            <a href="" ng-click="cart.addItem(product.id, product.name, product.price, 1)">
+                add to cart
+            </a>
+        </td>
+    </tr>
+    <tr class="well">
+    	<td class="tdLeft" colspan="2">
+            <uib-pagination 
+              ng-model="currentPage"
+              total-items="Countries.length"
+              max-size="maxSize"
+              items-per-page="numPerPage"
+              boundary-links="true">
+            </uib-pagination>
+        </td>
+        
+        <td class="tdRight" colspan="2">
+            <a href="#/cart" title="go to shopping cart" ng-disabled="cart.getTotalCount() < 1">
+                <i class="icon-shopping-cart" />
+                <b>{{cart.getTotalCount()}}</b> items, <b>{{cart.getTotalPrice() | currency: '£'}}</b>
+            </a>
+        </td>
+    </tr>
+</table>
