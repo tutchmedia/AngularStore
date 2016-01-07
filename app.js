@@ -51,15 +51,15 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     var myCart = new shoppingCart("AngularStore");
 
     // enable PayPal checkout
-    // note: the second parameter identifies the merchant; in order to use the 
-    // shopping cart with PayPal, you have to create a merchant account with 
+    // note: the second parameter identifies the merchant; in order to use the
+    // shopping cart with PayPal, you have to create a merchant account with
     // PayPal. You can do that here:
     // https://www.paypal.com/webapps/mpp/merchant
     myCart.addCheckoutParameters("PayPal", "paypaluser@youremail.com");
 
     // enable Google Wallet checkout
-    // note: the second parameter identifies the merchant; in order to use the 
-    // shopping cart with Google Wallet, you have to create a merchant account with 
+    // note: the second parameter identifies the merchant; in order to use the
+    // shopping cart with Google Wallet, you have to create a merchant account with
     // Google. You can do that here:
     // https://developers.google.com/commerce/wallet/digital/training/getting-started/merchant-setup
     myCart.addCheckoutParameters("Google", "xxxxxxx",
@@ -74,8 +74,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     );
 
     // enable Stripe checkout
-    // note: the second parameter identifies your publishable key; in order to use the 
-    // shopping cart with Stripe, you have to create a merchant account with 
+    // note: the second parameter identifies your publishable key; in order to use the
+    // shopping cart with Stripe, you have to create a merchant account with
     // Stripe. You can do that here:
     // https://manage.stripe.com/register
     myCart.addCheckoutParameters("Stripe", "pk_test_xxxx",
@@ -92,11 +92,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.Countries = [];
     $scope.editCountry = countries.create();
     $scope.currentPage = 1;
-    $scope.numPerPage = 5;
+    $scope.numPerPage = 10;
     $scope.maxSize = 100;
 
     $scope.filterCountries = [];
-    
+
     $scope.cart = cartService;
 
     // Initialization
@@ -117,7 +117,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         //$scope.Countries = countries.get($routeParams.productSku);
     }
 
-    
+
 
 
 
