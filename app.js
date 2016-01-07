@@ -1,4 +1,3 @@
-
 'use strict';
 angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 .config(['$routeProvider', 'parseRepositoriesProvider', function($routeProvider, provider){
