@@ -131,5 +131,5 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 }])
 .controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', function($scope, $routeParams, countries, cartService) {
-
+  console.log("Login Controller Loaded");
 }]);
