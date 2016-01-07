@@ -17,6 +17,10 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       when('/cart', {
         templateUrl: 'partials/shoppingCart.html',
         controller: 'storeController'
+      }).
+      when('/login', {
+        templateUrl: 'partials/login.html',
+        controller: 'loginController'
       })
       .otherwise({
         redirectTo: '/store'
@@ -126,4 +130,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.cart = cartService;
 
+}])
+.controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', function($scope, $routeParams, countries, cartService) {
+  
 }]);
