@@ -1,6 +1,6 @@
 'use strict';
 angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
-.value('siteTitle', 'a12345654321x');
+angular.value('siteTitle', 'a12345654321x');
 .config(['$routeProvider', 'parseRepositoriesProvider', function($routeProvider, provider){
    provider.init(Parse, "pCoojHpPizZaqvWg8HHl62N1NbANUvdS7plu3llV", "vr4HSF6g1NvR6h6umcZgRzCdHy1snnBNU1rvb9pZ")
 
