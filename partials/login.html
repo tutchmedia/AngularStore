@@ -1,13 +1,8 @@
-<form>
+<form name="loginForm">
+  <input name="username" ng-model="username" ng-minlength="5" required>
+  <span ng-show="loginForm.username.$error.required">Please enter something!</span>
 
-<p>Please login to check out.</p>
-
-<input type="text" name="username" ng-model="username" placeholder="Username"/>
-<span ng-show="!username.length">Please enter a username!</span>
-
-<input type="text" name="password" ng-model="password" placeholder="Password"/>
-<span ng-show="!password.length">Please enter a password!</span>
-
-<button class="btn btn-success">Sign In</button>
+  <input name="password" ng-model="password" ng-minlength="5" required>
+  <span ng-show="loginForm.password.$error.required">Please enter something!</span>
 
 </form>
