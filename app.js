@@ -27,14 +27,14 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.service('siteSettings', [, function() {
+.service('siteSettings', function() {
 
   return {
     siteTitle: "Bargain Vinyl"
   }
 
 
-}])
+})
 .service('countryService', ['parseRepositories', function($repos) {
 
     var Countries = $repos.CreateRepository('Products', {
@@ -100,8 +100,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', function($scope, countries, $routeParams, cartService, siteSettings){
-    $scope.siteTitle = siteSettings.siteTitle
+.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
+    $scope.siteTitle = siteSettings.siteTitle;
 
     $scope.Countries = [];
     $scope.editCountry = countries.create();
