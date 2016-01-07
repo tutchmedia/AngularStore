@@ -5,6 +5,9 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
    $routeProvider.
+      when('/', {
+        controller: 'rootCtrl'
+      }).
       when('/store', {
         templateUrl: 'partials/store.html',
         controller: 'testCtrl'
@@ -100,9 +103,10 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
+.controller('rootCtrl', function($scope, siteSettings) {
     $scope.siteTitle = siteSettings.siteTitle;
-
+})
+.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
     $scope.editCountry = countries.create();
     $scope.currentPage = 1;
