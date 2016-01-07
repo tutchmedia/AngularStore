@@ -139,7 +139,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     if($scope.login.username == "" OR $scope.login.password == "")
     {
-      $scope.loginmessage = "Please enter your credentials.";
+      $scope.loginmessage = "Please enter your credentials!";
     }
 
 
