@@ -134,5 +134,4 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-
 }]);
