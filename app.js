@@ -1,6 +1,5 @@
 'use strict';
 angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
-angular.value('siteTitle', 'a12345654321x');
 .config(['$routeProvider', 'parseRepositoriesProvider', function($routeProvider, provider){
    provider.init(Parse, "pCoojHpPizZaqvWg8HHl62N1NbANUvdS7plu3llV", "vr4HSF6g1NvR6h6umcZgRzCdHy1snnBNU1rvb9pZ")
 
@@ -25,6 +24,14 @@ angular.value('siteTitle', 'a12345654321x');
       .otherwise({
         redirectTo: '/store'
     });
+
+
+}])
+.service('siteSettings', [, function() {
+
+  return {
+    siteTitle: "Bargain Vinyl"
+  }
 
 
 }])
@@ -93,12 +100,15 @@ angular.value('siteTitle', 'a12345654321x');
 
 
 }])
-.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', function($scope, countries, $routeParams, cartService){
+.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', function($scope, countries, $routeParams, cartService, siteSettings){
+    $scope.siteTitle = siteSettings.siteTitle
+
     $scope.Countries = [];
     $scope.editCountry = countries.create();
     $scope.currentPage = 1;
     $scope.numPerPage = 10;
     $scope.maxSize = 100;
+
 
     $scope.filterCountries = [];
 
