@@ -28,6 +28,14 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 }])
 .service('countryService', ['parseRepositories', function($repos) {
+
+    // Global Vars
+    $scope.siteTitle = "Bargain Vinyl";
+
+
+
+
+
     var Countries = $repos.CreateRepository('Products', {
         'all' : {
             'queries':['query.ascending("title");','query.limit(1000);', 'query.include("flag");']
