@@ -18,7 +18,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         templateUrl: 'partials/shoppingCart.html',
         controller: 'storeController'
       }).
-      when('/login', {
+      when('/signin', {
         templateUrl: 'partials/login.html',
         controller: 'loginController'
       })
@@ -132,5 +132,5 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 }])
 .controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', function($scope, $routeParams, countries, cartService) {
-  
+
 }]);
