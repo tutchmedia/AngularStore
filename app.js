@@ -134,8 +134,5 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-    $scope.login.username = "";
-    $scope.login.password = "";
-
 
 }]);
