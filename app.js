@@ -30,7 +30,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 .service('siteSettings', function() {
 
   return {
-    siteTitle: "Bargain Vinyl"
+    siteTitle: "Bargain Vinyl",
+    siteSubTitle: "A tag line for this web site."
   }
 
 
@@ -102,6 +103,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 }])
 .controller('rootCtrl', function($scope, siteSettings) {
     $scope.siteTitle = siteSettings.siteTitle;
+    $scope.siteSubTitle = siteSettings.siteSubTitle;
 })
 .controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
