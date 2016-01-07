@@ -3,5 +3,7 @@
 .login_well {
   padding: 5px;
   float: right;
-  height:25px;
+}
+.clear {
+  clear:both;
 }
