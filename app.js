@@ -5,9 +5,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
    $routeProvider.
-      when('/', {
-        controller: 'rootCtrl'
-      }).
       when('/store', {
         templateUrl: 'partials/store.html',
         controller: 'testCtrl'
