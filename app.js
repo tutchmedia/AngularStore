@@ -63,7 +63,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     var User = $repos.CreateRepository('_User', {
         'all' : {
-            'queries':null
+            'queries':['query.limit(100);']
         }
     });
 
@@ -166,11 +166,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.cart = cartService;
 
 }])
-.controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', 'loginService', function($scope, $routeParams, countries, cartService, loginService) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', function($scope, $routeParams, loginService) {
 
     console.log("Login Controller Loaded");
 
-    $scope.loginForm = {};
+    $scope.loginForm = loginService.create();
 
     $scope.doLogin = function() {
       //var repoUSER = loginService.create() // this should replace repoUSER = new Parse.User();
