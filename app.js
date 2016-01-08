@@ -179,6 +179,9 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       //var username = $scope.loginForm.username;
       //var password = $scope.loginForm.password;
 
+
+      console.log($scope.loginForm);
+
       users.save($scope.loginForm).then(
           function(result) {
               // Handle success
