@@ -59,6 +59,27 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
+.service('loginService', ['parseRepositories', function($repos) {
+
+    var User = $repos.CreateRepository('User', {
+        'all' : {
+            'queries':null
+        }
+    });
+
+    //delete Countries.create;
+    //delete Countries.delete;
+
+    $repos.GettersAndSetters(Countries, [
+        {angular:'id', parse:'objectId'},
+        {angular:'username', parse:'username'},
+        {angular:'password', parse:'password'}
+    ]);
+
+    return User;
+
+
+}])
 .service('cartService', [ function() {
 
     var myCart = new shoppingCart("AngularStore");
@@ -145,8 +166,12 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.cart = cartService;
 
 }])
-.controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', function($scope, $routeParams, countries, cartService) {
+.controller('loginController', ['$scope', '$routeParams', 'countryService', 'cartService', 'loginService', function($scope, $routeParams, countries, cartService, loginService) {
 
     console.log("Login Controller Loaded");
+
+    $scope.user = user.create();
+
+    
 
 }]);
