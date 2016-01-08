@@ -1,8 +1,8 @@
 <form name="loginForm">
-  <input name="username" ng-model="loginForm.username" ng-minlength="5" placeholder="Username" required><br />
+  <input ng-model="loginForm.username" ng-minlength="5" placeholder="Username" required><br />
   <span ng-show="loginForm.username.$error.required">Please enter something!</span><br /><br />
 
-  <input type="password" name="password" ng-model="loginForm.password" ng-minlength="5" placeholder="Password" required><br />
+  <input type="password" ng-model="loginForm.password" ng-minlength="5" placeholder="Password" required><br />
   <span ng-show="loginForm.password.$error.required">Please enter something!</span><br /><br />
 
   <input type="submit" class="btn btn-success" ng-click="doLogin()" value="Sign In"/>
