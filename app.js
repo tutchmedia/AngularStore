@@ -170,11 +170,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-    var Users = loginService.create();
-
-
     $scope.doLogin = function() {
-      var repoUSER = new Users.create(); // this should replace repoUSER = new Parse.User();
+      var repoUSER = loginService.create() // this should replace repoUSER = new Parse.User();
       var username = loginUser.username;
       var password = loginUser.password;
 
