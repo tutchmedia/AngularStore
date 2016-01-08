@@ -170,7 +170,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-    //$scope.loginForm = users.create();
+    $scope.loginForm = users.create();
 
     console.log($scope.loginForm);
 
@@ -181,6 +181,18 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
       console.log($scope.loginForm);
+
+      Parse.User.logIn(username, password, { // THIS IS WORKING FINE
+        function(result) {
+            // Handle success
+            console.log("Success");
+            console.log(result);
+        },
+        function(e) {
+            // Handle error
+            console.log("Failed");
+        }
+      });
 
       users.get($scope.loginForm).then(
           function(result) {
