@@ -182,7 +182,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
       console.log($scope.loginForm);
 
-      users.save($scope.loginForm).then(
+      users.get($scope.loginForm).then(
           function(result) {
               // Handle success
               console.log("Success");
