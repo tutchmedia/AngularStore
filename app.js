@@ -166,11 +166,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.cart = cartService;
 
 }])
-.controller('loginController', ['$scope', '$routeParams', 'loginService', function($scope, $routeParams, loginService) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', function($scope, $routeParams, users) {
 
     console.log("Login Controller Loaded");
 
-    $scope.loginForm = loginService.create();
+    $scope.loginForm = users.create();
 
     console.log($scope.loginForm);
 
@@ -179,7 +179,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       //var username = $scope.loginForm.username;
       //var password = $scope.loginForm.password;
 
-      loginService.save($scope.loginForm).then(
+      users.save($scope.loginForm).then(
           function(result) {
               // Handle success
               console.log("Success");
