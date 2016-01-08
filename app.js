@@ -70,7 +70,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     //delete Countries.create;
     //delete Countries.delete;
 
-    $repos.GettersAndSetters(Countries, [
+    $repos.GettersAndSetters(User, [
         {angular:'id', parse:'objectId'},
         {angular:'username', parse:'username'},
         {angular:'password', parse:'password'}
@@ -172,6 +172,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.user = user.create();
 
-    
+
 
 }]);
