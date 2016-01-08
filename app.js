@@ -183,12 +183,12 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       console.log($scope.loginForm);
 
       Parse.User.logIn(username, password, { // THIS IS WORKING FINE
-        function(result) {
+        success: function(result) {
             // Handle success
             console.log("Success");
             console.log(result);
         },
-        function(e) {
+        error: function(e) {
             // Handle error
             console.log("Failed");
         }
