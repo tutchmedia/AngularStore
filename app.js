@@ -194,18 +194,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         }
       });
 
-      users.get($scope.loginForm).then(
-          function(result) {
-              // Handle success
-              console.log("Success");
-              console.log(result);
-          },
-          function(e) {
-              // Handle error
-              console.log("Failed");
-          }
-      );
-
 
     }
 
