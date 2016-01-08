@@ -178,8 +178,12 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       var password = loginForm.password;
 
       repoUSER.logIn(username, password, { // this is NOT working
-          success: _loginSuccessful,
-          error: _loginUnsuccessful
+          success: {
+            console.log("Success");
+          },
+          error: {
+            console.log("Failed");
+          }
       });
     }
 
