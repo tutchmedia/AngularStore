@@ -174,8 +174,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.doLogin = function() {
       //var repoUSER = loginService.create() // this should replace repoUSER = new Parse.User();
-      var username = $scope.loginForm.username;
-      var password = $scope.loginForm.password;
+      //var username = $scope.loginForm.username;
+      //var password = $scope.loginForm.password;
 
       loginService.get($scope.loginForm).then(
           function(result) {
