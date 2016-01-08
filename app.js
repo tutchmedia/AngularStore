@@ -61,7 +61,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 }])
 .service('loginService', ['parseRepositories', function($repos) {
 
-    var User = $repos.CreateRepository('User', {
+    var User = $repos.CreateRepository('_User', {
         'all' : {
             'queries':null
         }
@@ -170,7 +170,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-    $scope.loginForm = loginService.create();
+    $scope.loginForm = {};
 
     $scope.doLogin = function() {
       //var repoUSER = loginService.create() // this should replace repoUSER = new Parse.User();
