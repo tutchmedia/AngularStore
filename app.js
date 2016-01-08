@@ -170,7 +170,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     console.log("Login Controller Loaded");
 
-    $scope.loginForm = users.create();
+    //$scope.loginForm = users.create();
 
     console.log($scope.loginForm);
 
