@@ -130,7 +130,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     var currentUser = Parse.User.current();
     if (currentUser) {
         // do stuff with the user
-        console.log("current user: " currentUser);
+        console.log("current user: "+ currentUser);
     } else {
         // show the signup or login page
         console.log("Not logged in");
