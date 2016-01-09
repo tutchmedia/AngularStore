@@ -20,6 +20,9 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       when('/signin', {
         templateUrl: 'partials/login.html',
         controller: 'loginController'
+      }).
+      when('/signout', {
+        controller: 'logoutController'
       })
       .otherwise({
         redirectTo: '/store'
@@ -29,9 +32,12 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 }])
 .service('siteSettings', function() {
 
+  var currentUser = Parse.User.current();
+
   return {
     siteTitle: "Bargain Vinyl",
-    siteSubTitle: "A tag line for this web site."
+    siteSubTitle: "A tag line for this web site.",
+    currentUser: currentUser
   }
 
 
@@ -127,14 +133,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.siteSubTitle = siteSettings.siteSubTitle;
 
 
-    var currentUser = Parse.User.current();
-    if (currentUser) {
-        // do stuff with the user
-        console.log("current user: "+ currentUser);
-    } else {
-        // show the signup or login page
-        console.log("Not logged in");
-    }
+    $scope.currentUser = siteSettings.currentUser;
 })
 .controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
@@ -176,9 +175,22 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.cart = cartService;
 
 }])
-.controller('loginController', ['$scope', '$routeParams', 'loginService', function($scope, $routeParams, users) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', function($scope, $routeParams, users, siteSettings, $location) {
 
     console.log("Login Controller Loaded");
+
+    // Do check to forward the user away from the login page if they are already signed in
+
+    if (siteSettings.currentUser) {
+        // do stuff with the user
+        console.log("current user: "+ siteSettings.currentUser.attributes.username);
+        $location.path("#/store");
+    } else {
+        // show the signup or login page
+        console.log("Not logged in");
+    }
+
+    // Do other stuff
 
     $scope.loginForm = [];
 
@@ -208,5 +220,14 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     }
 
 
+
+}])
+.controller('logoutController', ['$scope', '$routeParams', 'loginService', '$location', function($scope, $routeParams, users, $location) {
+
+    console.log("Logged Out");
+
+    Parse.User.logOut();
+
+    $location.path('#/store');
 
 }]);

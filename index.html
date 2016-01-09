@@ -34,7 +34,16 @@
 	<div class="container-fluid">
         <div class="row-fluid">
             <div class="span10 offset1">
-                <div class="login_well"><a href="#/signin">Login</a> <a href="#/signup">Sign Up</a></div>
+                <div class="login_well">
+                  <div ng-show="!currentUser">
+                    <a href="#/signin">Login</a> <a href="#/signup">Sign Up</a>
+                  </div>
+
+                  <div ng-show="currentUser">
+                    Welcome, {{currentUser.attributes.username}}! <a href="#/account">My Account</a> <a href="#/signout">Sign Out</a>
+                  </div>
+
+                </div>
                 <div class="clear"></div>
                 <h1 class="well" >
                     <a href="#/store">{{siteTitle}}</a><br />
