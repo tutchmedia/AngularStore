@@ -1,0 +1,9 @@
+<div class="user_bar">
+<p ng-if="!currentUser">
+  <a href="#/signin" role="button" class="btn btn-success">Login</a> <a href="#/signup"  role="button" class="btn btn-success">Sign Up</a>
+</p>
+
+<p ng-if="currentUser">
+  Welcome, {{currentUser.attributes.username}}! <a href="#/account"  role="button" class="btn btn-success">My Account</a> <a href="#/signout"  role="button" class="btn btn-success">Sign Out</a>
+</p>
+</div>

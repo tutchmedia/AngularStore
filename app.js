@@ -22,13 +22,28 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         controller: 'loginController'
       }).
       when('/signout', {
-        controller: 'logoutController'
+        templateUrl: 'partials/logout.html',
+        controller: 'signoutController'
       })
       .otherwise({
         redirectTo: '/store'
     });
 
 
+}])
+.directive('header', ['siteSettings', function (siteSettings) {
+    return {
+        restrict: 'A', //This menas that it will be used as an attribute and NOT as an element. I don't like creating custom HTML elements
+        replace: true,
+        scope: {currentUser: '='}, // This is one of the cool things :). Will be explained in post.
+        templateUrl: "partials/header.html",
+        controller: ['$scope', '$filter', function ($scope, $filter) {
+            // Your behaviour goes here :)
+
+            $scope.currentUser = siteSettings.currentUser;
+
+        }]
+    }
 }])
 .service('siteSettings', function() {
 
@@ -170,12 +185,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('storeController', ['$scope', '$routeParams', 'countryService', 'cartService', function($scope, $routeParams, countries, cartService){
+.controller('storeController', ['$scope', '$routeParams', 'countryService', 'cartService', 'siteSettings', function($scope, $routeParams, countries, cartService, siteSettings){
 
     $scope.cart = cartService;
-
 }])
-.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', function($scope, $routeParams, users, siteSettings, $location) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', function($scope, $routeParams, users, siteSettings, $location, $route) {
 
     console.log("Login Controller Loaded");
 
@@ -209,6 +223,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
             // Handle success
             console.log("Success");
             console.log(result);
+            siteSettings.currentUser = Parse.User.current();
+            $location.path('/');
         },
         error: function(e) {
             // Handle error
@@ -222,12 +238,12 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('logoutController', ['$scope', '$routeParams', 'loginService', '$location', function($scope, $routeParams, users, $location) {
+.controller('signoutController', ['$scope', '$routeParams', 'loginService', '$location', 'siteSettings', function($scope, $routeParams, users, $location, settings) {
 
     console.log("Logged Out");
 
     Parse.User.logOut();
-
-    $location.path('#/store');
+    settings.currentUser = Parse.User.current();
+    $location.path('/');
 
 }]);
