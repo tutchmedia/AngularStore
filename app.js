@@ -125,6 +125,16 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 .controller('rootCtrl', function($scope, siteSettings) {
     $scope.siteTitle = siteSettings.siteTitle;
     $scope.siteSubTitle = siteSettings.siteSubTitle;
+
+
+    var currentUser = Parse.User.current();
+    if (currentUser) {
+        // do stuff with the user
+        console.log("current user: " currentUser);
+    } else {
+        // show the signup or login page
+        console.log("Not logged in");
+    }
 })
 .controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
