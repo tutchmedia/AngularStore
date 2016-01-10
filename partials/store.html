@@ -25,9 +25,14 @@
             {{product.price | currency: '£'}}
         </td>
         <td class="tdCenter">
-            <a href="" ng-click="cart.addItem(product.id, product.name, product.price, 1)">
-                add to cart
-            </a>
+            <div ng-if="product.inStock == 0">
+              Out of Stock
+            </div>
+            <div ng-if="product.inStock">
+              <a href="" ng-click="cart.addItem(product.id, product.name, product.price, 1, product.inStock)">
+                  add to cart
+              </a>
+            </div>
         </td>
     </tr>
     <tr class="well">

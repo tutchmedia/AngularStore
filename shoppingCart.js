@@ -53,9 +53,10 @@ shoppingCart.prototype.saveItems = function () {
 }
 
 // adds an item to the cart
-shoppingCart.prototype.addItem = function (sku, name, price, quantity) {
+shoppingCart.prototype.addItem = function (sku, name, price, quantity, stockQTY) {
     quantity = this.toNumber(quantity);
     if (quantity != 0) {
+
 
         // update quantity for existing item
         var found = false;
@@ -64,6 +65,12 @@ shoppingCart.prototype.addItem = function (sku, name, price, quantity) {
             if (item.sku == sku) {
                 found = true;
                 item.quantity = this.toNumber(item.quantity + quantity);
+                // Added by Craig
+                if(item.quantity > stockQTY)
+                {
+                  alert("You may only add as many to your basket as we have in stock.");
+                  item.quantity = stockQTY;
+                }
                 if (item.quantity <= 0) {
                     this.items.splice(i, 1);
                 }
@@ -341,4 +348,3 @@ function cartItem(sku, name, price, quantity) {
     this.price = price * 1;
     this.quantity = quantity * 1;
 }
-

@@ -2,6 +2,10 @@
 
 .user_bar {
   padding: 5px;
+  float: left;
+}
+.link_bar {
+  padding: 5px;
   float: right;
 }
 .clear {

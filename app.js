@@ -34,7 +34,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 .service('siteSettings', function() {
 
   return {
-    siteTitle: "Bargain Vinyl",
+    siteTitle: "My Store",
     siteSubTitle: "A tag line for this web site."
   }
 
@@ -57,6 +57,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         {angular:'image', parse:'image'},
         {angular:'price', parse:'price'},
         {angular:'description', parse:'description'},
+        {angular:'inStock', parse:'inStock'}
     ]);
 
     return Countries;
@@ -126,9 +127,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('rootCtrl', ['$scope','siteSettings','$rootScope','parseRepositories', function($scope, siteSettings, $rootScope, $repos) {
+.controller('rootCtrl', ['$scope','siteSettings','$rootScope','parseRepositories','cartService', function($scope, siteSettings, $rootScope, $repos, cartService) {
     $scope.siteTitle = siteSettings.siteTitle;
     $scope.siteSubTitle = siteSettings.siteSubTitle;
+
+    $scope.cart = cartService;
 
     $rootScope.currentUser = Parse.User.current();
 
