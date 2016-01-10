@@ -31,20 +31,20 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.directive('header', ['siteSettings', function (siteSettings) {
+.directive('header', function () {
     return {
         restrict: 'A', //This menas that it will be used as an attribute and NOT as an element. I don't like creating custom HTML elements
-        replace: true,
+        replace: false,
+        transclude: false,
         scope: {currentUser: '='}, // This is one of the cool things :). Will be explained in post.
         templateUrl: "partials/header.html",
-        controller: ['$scope', '$filter', function ($scope, $filter) {
-            // Your behaviour goes here :)
+        controller: function($scope, siteSettings, $location, $rootScope) {
 
-            $scope.currentUser = siteSettings.currentUser;
+            $scope.currentUser = Parse.User.current();
 
-        }]
+        }
     }
-}])
+})
 .service('siteSettings', function() {
 
   var currentUser = Parse.User.current();
@@ -147,8 +147,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     $scope.siteTitle = siteSettings.siteTitle;
     $scope.siteSubTitle = siteSettings.siteSubTitle;
 
-
     $scope.currentUser = siteSettings.currentUser;
+
 })
 .controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
@@ -189,7 +189,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.cart = cartService;
 }])
-.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', function($scope, $routeParams, users, siteSettings, $location, $route) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', function($scope, $routeParams, users, siteSettings, $location, $route, $rootScope ) {
 
     console.log("Login Controller Loaded");
 
@@ -203,7 +203,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         // show the signup or login page
         console.log("Not logged in");
     }
-
     // Do other stuff
 
     $scope.loginForm = [];
@@ -223,7 +222,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
             // Handle success
             console.log("Success");
             console.log(result);
-            siteSettings.currentUser = Parse.User.current();
+            siteSettings.currentUser = siteSettings.currentUser;
             $location.path('/');
         },
         error: function(e) {
@@ -234,6 +233,7 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
     }
+
 
 
 
