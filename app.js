@@ -31,28 +31,11 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.directive('header', function () {
-    return {
-        restrict: 'A', //This menas that it will be used as an attribute and NOT as an element. I don't like creating custom HTML elements
-        replace: false,
-        transclude: false,
-        scope: {currentUser: '='}, // This is one of the cool things :). Will be explained in post.
-        templateUrl: "partials/header.html",
-        controller: function($scope, siteSettings, $location, $rootScope) {
-
-            $scope.currentUser = Parse.User.current();
-
-        }
-    }
-})
 .service('siteSettings', function() {
-
-  var currentUser = Parse.User.current();
 
   return {
     siteTitle: "Bargain Vinyl",
-    siteSubTitle: "A tag line for this web site.",
-    currentUser: currentUser
+    siteSubTitle: "A tag line for this web site."
   }
 
 
@@ -143,13 +126,29 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('rootCtrl', function($scope, siteSettings) {
+.controller('rootCtrl', ['$scope','siteSettings','$rootScope','parseRepositories', function($scope, siteSettings, $rootScope, $repos) {
     $scope.siteTitle = siteSettings.siteTitle;
     $scope.siteSubTitle = siteSettings.siteSubTitle;
 
-    $scope.currentUser = siteSettings.currentUser;
+    $rootScope.currentUser = Parse.User.current();
 
-})
+    $rootScope.loggedIn = function() {
+      if($rootScope.currentUser === null) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+
+    $scope.logout = function() {
+      $rootScope.currentUser = null;
+      Parse.User.logOut();
+    };
+
+
+
+
+}])
 .controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
     $scope.Countries = [];
     $scope.editCountry = countries.create();
@@ -189,52 +188,34 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.cart = cartService;
 }])
-.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', function($scope, $routeParams, users, siteSettings, $location, $route, $rootScope ) {
+.controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', '$rootScope', function($scope, $routeParams, users, siteSettings, $location, $route, $rootScope) {
 
     console.log("Login Controller Loaded");
-
     // Do check to forward the user away from the login page if they are already signed in
-
-    if (siteSettings.currentUser) {
-        // do stuff with the user
-        console.log("current user: "+ siteSettings.currentUser.attributes.username);
-        $location.path("#/store");
-    } else {
-        // show the signup or login page
-        console.log("Not logged in");
+    if($rootScope.loggedIn() === true) {
+      $location.path("/");
     }
-    // Do other stuff
 
-    $scope.loginForm = [];
-
-    console.log($scope.loginForm);
-
-    $scope.doLogin = function() {
-      //var repoUSER = loginService.create() // this should replace repoUSER = new Parse.User();
-      var username = $scope.loginForm.username;
-      var password = $scope.loginForm.password;
-
-
-      console.log($scope.loginForm);
-
-      Parse.User.logIn(username, password, { // THIS IS WORKING FINE
-        success: function(result) {
-            // Handle success
-            console.log("Success");
-            console.log(result);
-            siteSettings.currentUser = siteSettings.currentUser;
-            $location.path('/');
-        },
-        error: function(e) {
-            // Handle error
-            console.log("Failed");
-        }
+    function loginSuccessful(user) {
+      $rootScope.$apply(function() {
+        $rootScope.currentUser = Parse.User.current();
+        $location.path("/");
       });
-
-
     }
 
+    function loginUnsuccessful(user, error) {
+      alert("Error: " + error.message + " (" + error.code + ")");
+    }
 
+    $scope.login = function() {
+      var username = $scope.login.username;
+      var password = $scope.login.password;
+
+      Parse.User.logIn(username, password, {
+        success: loginSuccessful,
+        error: loginUnsuccessful
+      });
+    };
 
 
 }])
