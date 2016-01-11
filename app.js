@@ -24,6 +24,10 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
       when('/signout', {
         templateUrl: 'partials/logout.html',
         controller: 'signoutController'
+      }).
+      when('/account', {
+        templateUrl: 'partials/account.html',
+        controller: 'accountController'
       })
       .otherwise({
         redirectTo: '/store'
@@ -63,6 +67,23 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     return Countries;
 
 
+}])
+.service('categoryService', ['parseRepositories', function($repos) {
+
+    var Categories = $repos.CreateRepository('Categories', {
+        'all' : {
+            'queries':['query.ascending("name");','query.limit(1000);']
+        }
+    });
+
+    delete Categories.delete;
+
+    $repos.GettersAndSetters(Categories, [
+        {angular:'id', parse:'objectId'},
+        {angular:'name', parse:'name'}
+    ]);
+
+    return Categories;
 }])
 .service('loginService', ['parseRepositories', function($repos) {
 
@@ -152,21 +173,30 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
 
 }])
-.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', function($scope, countries, $routeParams, cartService, siteSettings){
+.controller('testCtrl', ['$scope', 'countryService', '$routeParams', 'cartService', 'siteSettings', 'categoryService', function($scope, countries, $routeParams, cartService, siteSettings, categories){
     $scope.Countries = [];
+    $scope.Categories = [];
     $scope.editCountry = countries.create();
     $scope.currentPage = 1;
     $scope.numPerPage = 10;
     $scope.maxSize = 100;
 
-
     $scope.filterCountries = [];
 
-    $scope.cart = cartService;
+    if (categories === undefined) {
+        alert("map has no value");
+    } else {
+        alert("map is defined");
+    }
+    //$scope.categories = categories;
 
     // Initialization
     countries.all().then(function(result){
         $scope.Countries = result;
+    });
+
+    categories.all().then(function(result){
+        $scope.Categories = result;
     });
 
 
@@ -178,18 +208,14 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
                 $scope.product = result;
             }
         );
-
-        //$scope.Countries = countries.get($routeParams.productSku);
     }
 
-
-
-
-
 }])
-.controller('storeController', ['$scope', '$routeParams', 'countryService', 'cartService', 'siteSettings', function($scope, $routeParams, countries, cartService, siteSettings){
+.controller('storeController', ['$scope', '$routeParams', 'categoryService', 'cartService', 'siteSettings', function($scope, $routeParams, categories, cartService, siteSettings){
 
     $scope.cart = cartService;
+
+
 }])
 .controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', '$rootScope', function($scope, $routeParams, users, siteSettings, $location, $route, $rootScope) {
 
@@ -229,5 +255,14 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     Parse.User.logOut();
     settings.currentUser = Parse.User.current();
     $location.path('/');
+
+}])
+.controller('accountController', ['$scope', '$routeParams', 'loginService', '$location', 'siteSettings', '$rootScope', function($scope, $routeParams, users, $location, settings, $rootScope) {
+
+    console.log("Logged Out");
+
+    $scope.currentUser = $rootScope.currentUser;
+
+
 
 }]);
