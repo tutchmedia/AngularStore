@@ -49,6 +49,9 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     var Countries = $repos.CreateRepository('Products', {
         'all' : {
             'queries':['query.ascending("title");','query.limit(1000);', 'query.include("flag");']
+        },
+        'get' : {
+            'queries':['query.equalTo("cat", );']
         }
     });
 
@@ -61,7 +64,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         {angular:'image', parse:'image'},
         {angular:'price', parse:'price'},
         {angular:'description', parse:'description'},
-        {angular:'inStock', parse:'inStock'}
+        {angular:'inStock', parse:'inStock'},
+        {angular:'category', parse:'cat'}
     ]);
 
     return Countries;
@@ -79,8 +83,9 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
     //delete Categories.delete;
 
     $repos.GettersAndSetters(Categories, [
-        {angular:'sku', parse:'objectId'},
-        {angular:'name', parse:'name'}
+        {angular:'c_id', parse:'objectId'},
+        {angular:'name', parse:'name'},
+        {angular:'cat_id', parse:'cat_id'}
     ]);
 
     return Categories;
@@ -183,8 +188,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.filterCountries = [];
 
-    //$scope.categories = categories.create();
-
 
     // Initialization
     countries.all().then(function(result){
@@ -205,6 +208,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
             }
         );
     }
+
+
 
 }])
 .controller('storeController', ['$scope', '$routeParams', 'categoryService', 'cartService', 'siteSettings', function($scope, $routeParams, categories, cartService, siteSettings){
