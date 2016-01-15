@@ -76,10 +76,10 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
         }
     });
 
-    delete Categories.delete;
+    //delete Categories.delete;
 
     $repos.GettersAndSetters(Categories, [
-        {angular:'id', parse:'objectId'},
+        {angular:'sku', parse:'objectId'},
         {angular:'name', parse:'name'}
     ]);
 
@@ -183,12 +183,8 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.filterCountries = [];
 
-    if (categories === undefined) {
-        alert("map has no value");
-    } else {
-        alert("map is defined");
-    }
-    //$scope.categories = categories;
+    //$scope.categories = categories.create();
+
 
     // Initialization
     countries.all().then(function(result){
