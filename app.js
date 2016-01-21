@@ -216,9 +216,6 @@ angular.module('app', ['parse', 'ngRoute', 'ui.bootstrap'])
 
     $scope.cart = cartService;
 
-    console.log("Testing.");
-
-
 }])
 .controller('loginController', ['$scope', '$routeParams', 'loginService', 'siteSettings', '$location', '$route', '$rootScope', function($scope, $routeParams, users, siteSettings, $location, $route, $rootScope) {
 
